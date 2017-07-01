@@ -1,4 +1,4 @@
-# BlissXamarinApp
+## BlissXamarinApp
 Xamarin Developer Bliss Test
 
 This app was developed to be used as a test in the Bliss process
