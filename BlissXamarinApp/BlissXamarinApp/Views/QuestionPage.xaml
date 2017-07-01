@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:utils="clr-namespace:BlissXamarinApp.Utils;assembly=BlissXamarinApp"
+    xmlns:views="clr-namespace:BlissXamarinApp.Views;assembly=BlissXamarinApp"
+    x:Class="BlissXamarinApp.Views.QuestionPage">
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="Share" Command="{Binding ShareCommand}"/>
+  </ContentPage.ToolbarItems>
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <utils:ValuePercentConverter x:Key="ValuePercentConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+      <StackLayout Padding="0" BackgroundColor="{StaticResource SearchBackgroundColor}"
+                   HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+
+        <Image Source="{Binding Question.Image_Url}" Aspect="AspectFill" HorizontalOptions="FillAndExpand" />
+
+      </StackLayout>
+
+      <StackLayout Padding="10, 0, 10, 5" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <ListView VerticalOptions="Fill" HasUnevenRows="true" SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected"
+                  SeparatorColor="{ StaticResource BackgroundColor }" HorizontalOptions="Fill" ItemsSource="{Binding Question.Choices}" >
+
+          <ListView.Header>
+
+            <Grid >
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+
+              <Label Grid.Row="0" Grid.Column="0" Text="{Binding Question.Id, StringFormat='{0} - '}" Style="{StaticResource LabelTitleStyle}" />
+              <Label Grid.Row="0" Grid.Column="1" Text="{Binding Question.QuestionName}" Style="{StaticResource LabelTitleStyle}" />
+              <Label Grid.Row="1" Grid.Column="1" Text="{Binding Question.Published_At, StringFormat='Published At: {0:d}'}"
+                     Style="{StaticResource LabelSubTitleStyle}" />
+
+            </Grid>
+          </ListView.Header>
+
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+
+                <Frame BackgroundColor="White" HasShadow="false" OutlineColor="White" VerticalOptions="Start"
+                       Padding="0" HorizontalOptions="Fill" Margin="0, 5, 0, 5">
+
+                  <Grid Padding="5" HorizontalOptions="Fill" VerticalOptions="Center" RowSpacing="2" ColumnSpacing="5">
+
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="auto"/>
+                      <RowDefinition Height="auto"/>
+                      <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Choice, StringFormat='{0}'}" LineBreakMode="WordWrap" FontSize="15"
+                           VerticalOptions="Start" HorizontalOptions="Start" TextColor="{ StaticResource FontColor }"/>
+
+                    <Frame BackgroundColor="#C2C854" HasShadow="false"
+                           OutlineColor="{ StaticResource FontColor }" Padding="5" WidthRequest="35" HeightRequest="25"
+                           VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3">
+
+                      <Label Text="Vote" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
+
+                    </Frame>
+
+                    <!-- Default Box is important to serve as a parameter of how long should the bar increase -->
+                    <BoxView x:Name="DefaultBoxMeasure" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                             BackgroundColor="Silver" HeightRequest="10"
+                             VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,45,0" />
+
+                    <BoxView x:Name="ItemResultBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                             BackgroundColor="#4B69B3" HeightRequest="10"
+                             WidthRequest="{Binding Votes, Converter={StaticResource ValuePercentConverter}}"
+                             VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,45,0" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Votes, StringFormat='Votes: {0:N0}'}"
+                           TextColor="Gray" FontSize="Small"/>
+
+                  </Grid>
+                </Frame>
+
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+
+        </ListView>
+
+      </StackLayout>
+
+    </StackLayout>
+
+  </ScrollView>
+
+</views:BasePage>

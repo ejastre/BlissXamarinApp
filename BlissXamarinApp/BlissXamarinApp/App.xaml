@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlissXamarinApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--OnPlatform-->
+            <OnPlatform x:Key="HeaderFont" x:TypeArguments="Font" Android="Large" iOS="Large" WinPhone="Large" />
+            <OnPlatform x:Key="PrimaryTextColor" x:TypeArguments="Color" Android="White" iOS="White" WinPhone="White" />
+            <OnPlatform x:Key="LargeFontSize" x:TypeArguments="Font" Android="40" iOS="60" WinPhone="60" />
+            <!--Fonts Colors-->
+            <Color x:Key="FontColor">#52656b</Color>
+            <Color x:Key="PerfilTitleFontColor">#888888</Color>
+            <Color x:Key="PerfilPlaceFontColor">#A8A8A8</Color>
+            <!--General Colors-->
+            <Color x:Key="MainColor">#ff3b77</Color>
+            <Color x:Key="BackgroundColor">#EDEDED</Color>
+            <Color x:Key="SearchBackgroundColor">#BEC1C2</Color>
+            <Color x:Key="BarBackgroundColor">#FF00A7F3</Color>
+            <Color x:Key="BarTextColor">#FFFFFF</Color>
+            <!--Styles-->
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#FEA800"/>
+                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+            <Style x:Key="ButtonErrorStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#F63C44"/>
+                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="TextColor" Value="#545454"/>
+                <Setter Property="PlaceholderColor" Value="#A8A8A8"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="TextColor" Value="#545454"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style x:Key="LabelTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#ff3b77"/>
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="VerticalTextAlignment" Value="Start"/>
+            </Style>
+            <Style x:Key="LabelSubTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#888888"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="VerticalTextAlignment" Value="Start"/>
+            </Style>
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

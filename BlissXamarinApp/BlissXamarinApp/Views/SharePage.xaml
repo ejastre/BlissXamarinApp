@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BlissXamarinApp.Views;assembly=BlissXamarinApp"
+    x:Class="BlissXamarinApp.Views.SharePage"
+    Padding="0">
+
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15, 15">
+
+      <Label Text="Enter a valid e-mail to share your screen" Style="{StaticResource LabelStyle}" />
+
+      <BoxView HeightRequest="10" WidthRequest="100" BackgroundColor="Transparent"/>
+
+      <Label Text="E-mail:" Style="{StaticResource LabelSubTitleStyle}" />
+
+      <StackLayout Padding="1,1,1,1" BackgroundColor="#e5e6e6" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+        <Entry Text="{Binding DestinationEmail, Mode=TwoWay}" Style="{StaticResource EntryStyle}"/>
+      </StackLayout>
+        
+    </StackLayout>
+
+    <StackLayout VerticalOptions="EndAndExpand">
+
+      <Button Text="SEND E-MAIL" Style="{StaticResource ButtonStyle}" Command="{Binding ShareCommand}" />
+
+    </StackLayout>
+
+  </StackLayout>
+</views:BasePage>

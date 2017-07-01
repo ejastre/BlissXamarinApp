@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BlissXamarinApp.Views;assembly=BlissXamarinApp"
+    xmlns:controls="clr-namespace:BlissXamarinApp.Controls;assembly=BlissXamarinApp"
+    x:Class="BlissXamarinApp.Views.MainPage">
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="Share" Command="{Binding ShareCommand}"/>
+  </ContentPage.ToolbarItems>
+
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+    <StackLayout Padding="0" BackgroundColor="{StaticResource SearchBackgroundColor}"
+                 HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+
+      <SearchBar Placeholder="Search Questions" Text="{Binding SearchTerm, Mode=TwoWay}" HeightRequest="45"
+                 SearchCommand="{Binding SearchCommand}"/>
+
+    </StackLayout>
+
+    <StackLayout Padding="5" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                 IsVisible="{Binding IsNotBusy}">
+
+      <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsEmpty}">
+
+        <BoxView HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent"/>
+
+        <Image Source="icon_refresh.png">
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="RefreshOnTapGestureRecognizerTapped" />
+          </Image.GestureRecognizers>
+        </Image>
+
+        <Label Text="No results. Please, try again !" Style="{StaticResource LabelStyle}" />
+
+      </StackLayout>
+
+      <controls:InfiniteListView
+                HasUnevenRows="True"
+                ItemsSource="{Binding Questions}"
+                ItemSelected="ListView_OnItemSelected" SeparatorColor="CornflowerBlue"
+                IsVisible="{Binding IsNotEmpty}"
+                IsPullToRefreshEnabled="{Binding IsNotBusy}"
+                RefreshCommand="{Binding ForceRefreshCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                LoadCommand="{Binding LoadMoreCommand}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+
+              <Grid Padding="5">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="42"></RowDefinition>
+                  <RowDefinition Height="18"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="60"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Thumb_Url}" Aspect="AspectFill"
+                       WidthRequest="60" HeightRequest="60"/>
+
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Id, StringFormat='{0} - '}" Style="{StaticResource LabelTitleStyle}" />
+                <Label Grid.Row="0" Grid.Column="2" Text="{Binding QuestionName}" Style="{StaticResource LabelTitleStyle}" />
+                <Label Grid.Row="1" Grid.Column="2" Text="{Binding Published_At, StringFormat='Published At: {0:d}'}"
+                       Style="{StaticResource LabelSubTitleStyle}" />
+
+              </Grid>
+
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </controls:InfiniteListView>
+
+    </StackLayout>
+
+  </StackLayout>
+
+</views:BasePage>

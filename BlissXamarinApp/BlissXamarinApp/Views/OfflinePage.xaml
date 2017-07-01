@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BlissXamarinApp.Views.OfflinePage"
+    Title="No Connectivity">
+
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15, 15">
+
+            <BoxView HeightRequest="50" WidthRequest="100" BackgroundColor="Transparent"/>
+
+            <Image Source="img_offline.png" />
+            <Label Text="Something is not quite right" Style="{StaticResource LabelSubTitleStyle}" HorizontalOptions="CenterAndExpand" />
+
+            <BoxView HeightRequest="50" WidthRequest="100" BackgroundColor="Transparent"/>
+
+            <Image Source="icon_refresh.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="RefreshOnTapGestureRecognizerTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="Try Again!" HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelStyle}" />
+        </StackLayout>
+
+        <StackLayout VerticalOptions="EndAndExpand">
+
+            <Button Text="CLOSE APP" Style="{StaticResource ButtonErrorStyle}" Clicked="Button_OnClicked" />
+
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>
