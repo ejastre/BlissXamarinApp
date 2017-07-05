@@ -16,26 +16,27 @@ namespace BlissXamarinApp.Services
     {
         private const string BaseUrl = "https://private-anon-5e603a36df-blissrecruitmentapi.apiary-mock.com/";
         private const int Limit = 10;
+        private readonly HttpClient _httpClient = new HttpClient();
+
+        public BlissApiService()
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.Timeout = TimeSpan.FromSeconds(10);
+        }
 
         public async Task<List<Question>> GetQuestionsAsync(int offset)
         {
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await _httpClient.GetAsync($"{BaseUrl}questions?{Limit}&{offset}").ConfigureAwait(false);
+                if (!response.IsSuccessStatusCode) return null;
 
-                var response = await httpClient.GetAsync($"{BaseUrl}questions?{Limit}&{offset}").ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
+                using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    {
-                        return JsonConvert.DeserializeObject<List<Question>>(
-                            await new StreamReader(responseStream)
-                                .ReadToEndAsync().ConfigureAwait(false));
-                    }
+                    return JsonConvert.DeserializeObject<List<Question>>(
+                        await new StreamReader(responseStream)
+                            .ReadToEndAsync().ConfigureAwait(false));
                 }
-                return null;
             }
             catch (Exception e)
             {
@@ -47,21 +48,15 @@ namespace BlissXamarinApp.Services
         {
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await _httpClient.GetAsync($"{BaseUrl}questions/{questionId}").ConfigureAwait(false);
+                if (!response.IsSuccessStatusCode) return null;
 
-                var response = await httpClient.GetAsync($"{BaseUrl}questions/{questionId}").ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
+                using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    {
-                        return JsonConvert.DeserializeObject<Question>(
-                            await new StreamReader(responseStream)
-                                .ReadToEndAsync().ConfigureAwait(false));
-                    }
+                    return JsonConvert.DeserializeObject<Question>(
+                        await new StreamReader(responseStream)
+                            .ReadToEndAsync().ConfigureAwait(false));
                 }
-                return null;
             }
             catch (Exception e)
             {
@@ -73,21 +68,15 @@ namespace BlissXamarinApp.Services
         {
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await _httpClient.GetAsync($"{BaseUrl}questions?{Limit}&{offset}&{Uri.EscapeUriString(filter)}").ConfigureAwait(false);
+                if (!response.IsSuccessStatusCode) return null;
 
-                var response = await httpClient.GetAsync($"{BaseUrl}questions?{Limit}&{offset}&{Uri.EscapeUriString(filter)}").ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
+                using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    {
-                        return JsonConvert.DeserializeObject<List<Question>>(
-                            await new StreamReader(responseStream)
-                                .ReadToEndAsync().ConfigureAwait(false));
-                    }
+                    return JsonConvert.DeserializeObject<List<Question>>(
+                        await new StreamReader(responseStream)
+                            .ReadToEndAsync().ConfigureAwait(false));
                 }
-                return null;
             }
             catch (Exception e)
             {
@@ -99,10 +88,7 @@ namespace BlissXamarinApp.Services
         {
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response = await httpClient.GetAsync($"{BaseUrl}health").ConfigureAwait(false);
+                var response = await _httpClient.GetAsync($"{BaseUrl}health").ConfigureAwait(false);
 
                 using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
@@ -121,10 +107,7 @@ namespace BlissXamarinApp.Services
         {
             try
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response = await httpClient.PostAsync($"{BaseUrl}share?{content.DestinationEmail}&{content.ContentUrl}", null)
+                var response = await _httpClient.PostAsync($"{BaseUrl}share?{content.DestinationEmail}&{content.ContentUrl}", null)
                     .ConfigureAwait(false);
 
                 return response.IsSuccessStatusCode;

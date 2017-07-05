@@ -26,15 +26,12 @@
       <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsEmpty}">
 
         <BoxView HeightRequest="100" WidthRequest="100" BackgroundColor="Transparent"/>
+        <Image Source="icon_refresh.png"/>
+        <Label Text="No results. Please, try again!" Style="{StaticResource LabelStyle}" />
 
-        <Image Source="icon_refresh.png">
-          <Image.GestureRecognizers>
-            <TapGestureRecognizer Tapped="RefreshOnTapGestureRecognizerTapped" />
-          </Image.GestureRecognizers>
-        </Image>
-
-        <Label Text="No results. Please, try again !" Style="{StaticResource LabelStyle}" />
-
+        <StackLayout.GestureRecognizers>
+          <TapGestureRecognizer Command="{Binding ForceRefreshCommand}" />
+        </StackLayout.GestureRecognizers>
       </StackLayout>
 
       <controls:InfiniteListView

@@ -95,6 +95,7 @@ namespace BlissXamarinApp.ViewModels
             try
             {
                 IsBusy = true;
+                IsEmpty = false;
                 
                 var questions = await _blissXamarinApiService.GetQuestionsByFilterAsync(Questions.Count, SearchTerm);
 
@@ -108,6 +109,8 @@ namespace BlissXamarinApp.ViewModels
                     }
                     OnPropertyChanged(nameof(Questions));
                 }
+                else
+                    IsEmpty = true;
             }
             catch (Exception e)
             {
@@ -123,6 +126,8 @@ namespace BlissXamarinApp.ViewModels
         {
             try
             {
+                IsEmpty = false;
+
                 if (Util.CheckConnectivity())
                 {
                     IsBusy = true;
