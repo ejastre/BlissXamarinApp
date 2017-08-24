@@ -26,19 +26,5 @@ namespace BlissXamarinApp.Views
                 ViewModel.ShowQuestionCommand.Execute(args.SelectedItem);
             }
         }
-
-        private async void RefreshOnTapGestureRecognizerTapped(object sender, EventArgs e)
-        {
-            await ViewModel.LoadAsync();
-        }
-
-        protected override async void OnAppearing()
-        {
-            //if (!Util.CheckConnectivity())
-            //{
-            //    await Navigation.PushAsync(new OfflinePage());
-            //}
-            base.OnAppearing();
-        }
     }
 }
